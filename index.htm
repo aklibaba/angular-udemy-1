@@ -52,6 +52,18 @@
         <ol>
             <li ng-repeat="user in users">{{user.name}}</li>
         </ol>
+        <form ng-submit="submit()">
+            <label>
+                <span>Add rule:</span>
+                <input type="text" ng-model="newRule">
+            </label>
+            <button type="submit">Submit Rule</button>
+        </form>
+        <h2>New rules</h2>
+        <ol ng-if="newRules.length > 0">
+            <li ng-repeat="rule in newRules">{{rule}}</li>
+        </ol>
+
     </div>
 
 
