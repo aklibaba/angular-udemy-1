@@ -61,8 +61,12 @@
         </form>
         <h2>New rules</h2>
         <ol ng-if="newRules.length > 0">
-            <li ng-repeat="rule in newRules">{{rule}}</li>
+            <li ng-repeat="rule in newRules track by $index">{{rule}}</li>
         </ol>
+
+    </div>
+
+    <div ng-controller="secondController">
 
     </div>
 

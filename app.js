@@ -4,7 +4,7 @@ myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$h
   function ($log, $scope, $timeout, $filter, $http) {
     $scope.nick = 'Michal';
     $scope.newRules = [];
-    $scope.newRule;
+    $scope.newRule = '';
     $scope.submit = function () {
       console.log('submitted');
       $scope.newRules.push($scope.newRule)
@@ -34,11 +34,16 @@ myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$h
         console.log(response.data);
         $scope.users = response.data;
       })
-      .catch(function(data, status) {
+      .catch(function (data, status) {
         console.log(data);
         console.log(status);
       })
-    
+
+  }]);
+
+myApp.controller('secondController', ['$log', '$scope', '$timeout', '$filter', '$http',
+  function ($log, $scope, $timeout, $filter, $http) {
+    $scope.nick = 'alexoo';
   }]);
 
 function traditionalXhr($scope, root) {
