@@ -13,8 +13,11 @@
         }
     </style>
 
+    <base href="/angular-udemy-1/">
+
     <!-- load angular via CDN -->
     <script src="https://code.angularjs.org/1.6.5/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.5/angular-route.js"></script>
     <script src="https://code.angularjs.org/1.6.5/angular-messages.min.js"></script>
     <script src="https://code.angularjs.org/1.6.5/angular-resource.min.js"></script>
     <script src="app.js"></script>
@@ -30,6 +33,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="#/bookmark/1"><i class="fa fa-home"></i>Last bookmark</a></li>
             </ul>
         </div>
     </nav>
@@ -70,6 +74,9 @@
 
     </div>
 
+    <div x-ng-view></div>
+
+    <div id="last-bookmark"></div>
 
 </div>
 

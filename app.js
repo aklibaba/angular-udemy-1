@@ -1,7 +1,21 @@
-var myApp = angular.module('myApp', ['ngMessages', 'ngResource']);
+var myApp = angular.module('myApp', ['ngMessages', 'ngResource', 'ngRoute']);
 
-myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$http',
-  function ($log, $scope, $timeout, $filter, $http) {
+myApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+  $locationProvider.hashPrefix("");
+
+  $routeProvider
+    .when('/', {
+      templateUrl: 'pages/main.html',
+      controller: 'secondController'
+    })
+    .when('/second', {
+      templateUrl: 'pages/second.html',
+      controller: 'secondController'
+    })
+}]);
+
+myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$http', '$location',
+  function ($log, $scope, $timeout, $filter, $http, $location) {
     $scope.nick = 'Michal';
     $scope.newRules = [];
     $scope.newRule = '';
@@ -31,7 +45,6 @@ myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$h
      */
     $http.get(root + '/users')
       .then(function (response) {
-        console.log(response.data);
         $scope.users = response.data;
       })
       .catch(function (data, status) {
@@ -39,10 +52,13 @@ myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$h
         console.log(status);
       })
 
+    $log.info('path', $location.path());
+
   }]);
 
 myApp.controller('secondController', ['$log', '$scope', '$timeout', '$filter', '$http',
   function ($log, $scope, $timeout, $filter, $http) {
+  console.log('second controller called');
     $scope.nick = 'alexoo';
   }]);
 
@@ -58,6 +74,15 @@ function traditionalXhr($scope, root) {
   xhr.open("GET", root + '/users', true);
   xhr.send();
 }
+
+window.addEventListener('hashchange', function () {
+
+  if (window.location.hash === '#/bookmark/1') {
+    console.log('Loaded page 1');
+  }
+});
+
+
 
 
 
