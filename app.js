@@ -1,22 +1,38 @@
 var myApp = angular.module('myApp', ['ngMessages', 'ngResource', 'ngRoute']);
 
-myApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+myApp.service('nameService', function () {
+  var self = this;
+  this.name = 'John Doe';
+  this.namelength = function () {
+    return self.name.length;
+  }
+
+});
+
+myApp.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix("");
 
   $routeProvider
     .when('/', {
       templateUrl: 'pages/main.html',
-      controller: 'secondController'
+      controller: 'mainController'
     })
-    .when('/second', {
+    .when('/second/', {
       templateUrl: 'pages/second.html',
       controller: 'secondController'
     })
 }]);
 
-myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$http', '$location',
-  function ($log, $scope, $timeout, $filter, $http, $location) {
-    $scope.nick = 'Michal';
+
+myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$http', '$location', '$routeParams', 'nameService',
+  function ($log, $scope, $timeout, $filter, $http, $location, $routeParams, nameService) {
+    $scope.name = nameService.name;
+    $scope.$watch('name', function (newVal) {
+      nameService.name = newVal;
+    });
+    $scope.nick = $routeParams.nick || '';
+    $log.main = 'property from main';
+    $log.log($log);
     $scope.newRules = [];
     $scope.newRule = '';
     $scope.submit = function () {
@@ -30,7 +46,7 @@ myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$h
 
     setTimeout(function () {
       $scope.$apply(function () {
-        $scope.nick = 'Peter';
+        // $scope.nick = 'Peter';
       });
     }, 3000);
 
@@ -56,10 +72,9 @@ myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$h
 
   }]);
 
-myApp.controller('secondController', ['$log', '$scope', '$timeout', '$filter', '$http',
-  function ($log, $scope, $timeout, $filter, $http) {
-  console.log('second controller called');
-    $scope.nick = 'alexoo';
+myApp.controller('secondController', ['$log', '$scope', 'nameService',
+  function ($log, $scope, nameService) {
+    $scope.name = nameService.name;
   }]);
 
 function traditionalXhr($scope, root) {

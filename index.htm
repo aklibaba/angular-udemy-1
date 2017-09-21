@@ -33,7 +33,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#/bookmark/1"><i class="fa fa-home"></i>Last bookmark</a></li>
+                <li><a href="#/second"><i class="fa fa-home"></i>Last bookmark</a></li>
             </ul>
         </div>
     </nav>
@@ -50,6 +50,7 @@
             <div class="alert" ng-class="{'alert-warning': nick.length < 5, 'alert-danger': nick.length > 5}"
                  ng-hide="nick.length === 5">Must be at least 5 characters
             </div>
+
             <h3>facebook.com/{{lcNick()}}</h3>
         </div>
         <h3>Rules</h3>
@@ -70,9 +71,7 @@
 
     </div>
 
-    <div ng-controller="secondController">
-
-    </div>
+    <div ng-controller="secondController"></div>
 
     <div x-ng-view></div>
 
