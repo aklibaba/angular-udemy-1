@@ -1,5 +1,16 @@
 var myApp = angular.module('myApp', ['ngMessages', 'ngResource', 'ngRoute']);
 
+myApp.directive('searchResult', function () {
+  return {
+    restrict: 'AECM',
+    templateUrl: 'directives/search-result.html',
+    replace: true,
+    scope: {
+      name: "@"
+    }
+  }
+});
+
 myApp.service('nameService', function () {
   var self = this;
   this.name = 'John Doe';
@@ -26,7 +37,13 @@ myApp.config(['$locationProvider', '$routeProvider', function ($locationProvider
 
 myApp.controller('mainController', ['$log', '$scope', '$timeout', '$filter', '$http', '$location', '$routeParams', 'nameService',
   function ($log, $scope, $timeout, $filter, $http, $location, $routeParams, nameService) {
+    $scope.person = {
+      name: 'Aleksander Moloniewicz',
+      age: 30,
+      nationality: 'POL'
+    };
     $scope.name = nameService.name;
+    $scope.address = 'ul. Księcia Janusza 16/22 m.23';
     $scope.$watch('name', function (newVal) {
       nameService.name = newVal;
     });
