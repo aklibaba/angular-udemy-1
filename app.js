@@ -7,7 +7,8 @@ myApp.directive('searchResult', function () {
     replace: true,
     scope: {
       name: "@"
-    }
+    },
+    transclude: true
   }
 });
 
